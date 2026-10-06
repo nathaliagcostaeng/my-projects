@@ -17,7 +17,7 @@ My work here centers around the design, deployment, and optimization of end-to-e
 
 ## 🚧 Portfolio Status: Active Construction & Ingestion
 
-This space is under **active structural development**. I am systematically migrating and documenting my production-grade codebases, automation scripts, and firmware frameworks. New projects will be deployed here consecutively.
+This space is under **active structural development**. I am systematically migrating and documenting my production-grade codebases, automation scripts, and firmware frameworks. New projects will be deployed here soon.
 
 ---
 
@@ -29,17 +29,8 @@ An end-to-end computer vision and Data-Centric MLOps pipeline engineered to auto
 *   **Metrics:** Achieved a global **Accuracy of 94.44%** (98% Jaguar Precision / 98% Ocelot Recall) over raw, overexposed infrared camera trap data.
 *   **Stack:** Python, PyTorch, FastAI, Label Smoothing Cross Entropy, GPU Hardware Acceleration, Gradio UI.
 
-## **New projects coming soon...**
-
-
 ---
 
-## 🎯 Technical Skillset
 
-*   **Programming & Frameworks:** Python, C/C++, PyTorch, FastAI, OpenCV.
-*   **Data & MLOps:** Data-Centric AI, Class Balancing, Loss Regularization, Pipeline Automation.
-*   **Hardware & Automation:** Microcontrollers (ESP32, Arduino, STM32), PCB Design, Telemetry, Embedded Systems.
-
----
 
 *“Engineering tools to understand, automate, and protect our ecosystem.”*
