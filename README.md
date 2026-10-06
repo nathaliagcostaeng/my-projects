@@ -8,10 +8,10 @@ Welcome to my central engineering and research repository. I am a Control and Au
 
 ## 🛠️ Core Focus & Engineering Domain
 
-My work here centers around the design, deployment, and optimization of end-to-end technological solutions, specializing in:
-*   **Environmental Conservation Technologies:** 
-*   **Electronics & Hardware Design:** 
-*   **Automation & Industrial IoT:** 
+My work here centers around the design, deployment, and optimization of end-to-end technological solutions, specially in:
+*   **Environmental Conservation Technologies** 
+*   **Electronics & Hardware Design** 
+*   **Automation & Industrial IoT** 
 
 ---
 
