@@ -17,7 +17,7 @@ My work here centers around the design, deployment, and optimization of end-to-e
 
 ## 🚧 Portfolio Status: Active Construction & Ingestion
 
-This space is under **active structural development**. I am systematically migrating and documenting my production-grade codebases, automation scripts, and firmware frameworks. New pojects will be deployed here consecutively.
+This space is under **active structural development**. I am systematically migrating and documenting my production-grade codebases, automation scripts, and firmware frameworks. New projects will be deployed here consecutively.
 
 ---
 
