@@ -31,6 +31,3 @@ An end-to-end computer vision and Data-Centric MLOps pipeline engineered to auto
 
 ---
 
-
-
-*“Engineering tools to understand, automate, and protect our ecosystem.”*
