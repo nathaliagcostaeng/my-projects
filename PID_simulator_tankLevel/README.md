@@ -3,7 +3,7 @@
 Interactive web app for tuning a PID controller on a nonlinear tank model.
 Move the gains and watch the response and the control effort update instantly.
 
-**[Live demo](https://SEU-APP.streamlit.app)**
+**[Live demo](https://pid-tank-level-nathalia.streamlit.app/)**
 
 ## What it does
 
