@@ -19,15 +19,4 @@ My work here centers around the design, deployment, and optimization of end-to-e
 
 This space is under **active structural development**. I am systematically migrating and documenting my production-grade codebases, automation scripts, and firmware frameworks. New projects will be deployed here soon.
 
----
-
-## 🐆 Featured Production Project
-
-### [Project Jaguationça: Deep Learning for Automated Wildlife Monitoring]
-An end-to-end computer vision and Data-Centric MLOps pipeline engineered to automate species identification and resolve morphological data bottlenecks in wildlife tracking. 
-*   **Backbone:** ResNet50 Convolutional Neural Network with ImageNet Transfer Learning.
-*   **Metrics:** Achieved a global **Accuracy of 94.44%** (98% Jaguar Precision / 98% Ocelot Recall) over raw, overexposed infrared camera trap data.
-*   **Stack:** Python, PyTorch, FastAI, Label Smoothing Cross Entropy, GPU Hardware Acceleration, Gradio UI.
-
----
 
