@@ -6,18 +6,25 @@ from plotly.subplots import make_subplots
 st.set_page_config(page_title="PID Simulator - Tank Level", layout="wide")
 
 
-def simulate(kp, ki, kd, setpoint, t_final, dt, area, k_out, q_max, t_dist, q_dist, anti_windup):
+def simulate(kp, ki, kd, setpoint, t_final, dt, area, k_out, q_max, t_dist, q_dist, anti_windup, tau_f):
     n = int(t_final / dt)
     t = np.arange(n) * dt
     h = np.zeros(n)
     u = np.zeros(n)
     integral = 0.0
-    prev_error = setpoint
+    prev_error = setpoint - h[0]
+    derivative_meas = 0.0
+    alpha = dt / (tau_f + dt)  # first-order low-pass filter coefficient
 
     for i in range(1, n):
         error = setpoint - h[i - 1]
-        derivative = (error - prev_error) / dt
-        u_raw = kp * error + ki * integral + kd * derivative
+
+        # Derivative on measurement, filtered: avoids the startup spike and the
+        # derivative kick on a setpoint step change
+        d_meas_raw = (h[i - 1] - h[i - 2]) / dt if i >= 2 else 0.0
+        derivative_meas += alpha * (d_meas_raw - derivative_meas)
+
+        u_raw = kp * error + ki * integral - kd * derivative_meas
         u_sat = np.clip(u_raw, 0, q_max)  # pump cannot have negative or infinite flow
 
         # Anti-windup via conditional integration
@@ -54,7 +61,7 @@ def compute_metrics(t, h, setpoint):
 
 
 # ---------------- User Interface ----------------
-st.title(" PID Control Simulator — Tank Level")
+st.title("💧 PID Control Simulator — Tank Level")
 st.caption("Nonlinear model: A·dh/dt = u − k·√h − q_disturbance")
 
 with st.sidebar:
@@ -63,6 +70,7 @@ with st.sidebar:
     ki = st.slider("Ki", 0.0, 5.0, 0.5, 0.05)
     kd = st.slider("Kd", 0.0, 20.0, 1.0, 0.1)
     anti_windup = st.checkbox("Anti-windup", value=True)
+    tau_f = st.slider("Derivative filter τf (s)", 0.0, 2.0, 0.5, 0.05)
 
     st.header("Process")
     setpoint = st.slider("Level setpoint (m)", 0.5, 5.0, 2.0, 0.1)
@@ -76,7 +84,7 @@ with st.sidebar:
 
     t_final = st.slider("Simulation time (s)", 50, 400, 300, 10)
 
-t, h, u = simulate(kp, ki, kd, setpoint, t_final, 0.05, area, k_out, q_max, t_dist, q_dist, anti_windup)
+t, h, u = simulate(kp, ki, kd, setpoint, t_final, 0.05, area, k_out, q_max, t_dist, q_dist, anti_windup, tau_f)
 
 # Metrics computed only before the disturbance (step response)
 mask = t < t_dist if t_dist > 0 else np.ones_like(t, bool)
@@ -107,6 +115,9 @@ with st.expander("How to interpret"):
 - **High Kp**: faster response, but more overshoot.
 - **Ki** eliminates steady-state error, but too much causes oscillation.
 - **Kd** dampens the response and reduces overshoot.
+- **Derivative filter τf**: smooths the derivative. Set it to 0 to see the raw,
+  noisy behaviour; the industrial default is roughly 1/5 to 1/10 of the plant time constant.
 - **Anti-windup:** turn it off while the pump is saturated and watch the overshoot grow.
 - The **disturbance** shows the controller's ability to reject external disturbances.
 """)
+
