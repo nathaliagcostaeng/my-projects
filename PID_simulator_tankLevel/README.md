@@ -3,7 +3,7 @@
 Interactive web app for tuning a PID controller on a nonlinear tank model.
 Move the gains and watch the response and the control effort update instantly.
 
-**[Live demo](https://pid-tank-level-nathalia.streamlit.app/)**
+Live demo
 
 ## What it does
 
@@ -46,9 +46,31 @@ This app uses **conditional integration**: the integral is only updated when the
 control signal is not saturated. Turn the anti-windup checkbox off and push the
 tank into saturation to see the difference in the overshoot value.
 
+## Derivative handling
+
+The derivative term is the most fragile of the three, and two separate problems
+show up in practice. The first is measurement noise amplification: differentiating
+a noisy signal produces large swings in the control effort. The second is the
+*derivative kick* — a step change in the setpoint enters the derivative as an
+impulse and triggers a violent, instantaneous control action.
+
+Both are handled the way industrial controllers handle them:
+
+- **Derivative on measurement.** The derivative acts on the level, not on the
+  error, so a setpoint change no longer produces a kick.
+- **Low-pass filtering.** The result passes through a first-order filter with time
+  constant $\tau_f$, which attenuates high-frequency content:
+
+$$u_d(t) = K_d \cdot \frac{de}{dt} \cdot \frac{1}{\tau_f s + 1}$$
+
+The filter time constant is exposed as a slider. Set it to `0` to recover the raw,
+unfiltered behaviour. The usual rule of thumb is to choose $\tau_f$ between one
+fifth and one tenth of the plant time constant.
+
 ## Features
 
 - PID gains (Kp, Ki, Kd) tuned with sliders
+- Derivative filter time constant τf, from 0 (off) to 2 s
 - Anti-windup on/off
 - Process parameters: setpoint, tank area, outflow coefficient, max pump flow
 - Configurable step disturbance, with its magnitude and start time
@@ -68,8 +90,8 @@ No external API, database or hardware.
 ## Getting started
 
 ```bash
-git clone [github.com](https://github.com/SEU-USUARIO/pid-simulator.git)
-cd pid-simulator
+git clone [github.com](https://github.com/nathaliagcostaeng/my-projects.git)
+cd my-projects/PID_simulator_tankLevel
 python -m venv .venv
 
 # Windows (PowerShell)
